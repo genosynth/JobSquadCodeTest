@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
+const { Router } = require('express')
 
 
   
@@ -15,8 +16,7 @@ router.post('/getCountry', async (req,res)=>{
         //console.log(error)
         let message = "Not Found"
         return res.send(message)
-    }
-    
+    }    
    /* if (matchedCountry.data){
      return res.send(matchedCountry.data)
     }
@@ -49,5 +49,14 @@ router.post('/getAll', async (req,res)=>{
         return res.send(namesOnly)
        }
 })
+
+router.get('/filterAll', async (req,res)=>{
+
+    const allCountries = await axios.get(`https://restcountries.com/v3.1/all`)
+    //console.log(allCountries.data)
+    const namesOnly = allCountries.data.map(country => country.name.common)
+    
+    return res.send(namesOnly)
+} )
 
 module.exports = router

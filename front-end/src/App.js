@@ -27,9 +27,7 @@ function App() {
       console.log(response.data[0])
       updateResponseCountry(response.data[0].name.common)
 
-    })
-
-    
+    })    
     
   }
 

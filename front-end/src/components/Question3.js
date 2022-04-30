@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
 // This holds a list of some fiction people
@@ -15,24 +16,43 @@ const USERS = [
   { id: 9, name: 'Bolo', age: 23 },
 ];
 
+
 function Question3() {
+  const [allCountries, updateAllCountries] = useState([])
   // the value of the search field 
+
+  const getAllCountries = async()=>{
+      
+    await axios.get('http://192.168.0.145:5000/app/filterAll')
+    .then((response) => {
+      //console.log(response.data)
+      updateAllCountries(response.data)
+  
+    })
+  }
+
+  useEffect(()=> {
+    getAllCountries()
+   //getArticles()
+  }, [])
+
+  
   const [name, setName] = useState('');
 
   // the search result
-  const [foundUsers, setFoundUsers] = useState(USERS);
+  const [foundUsers, setFoundUsers] = useState(allCountries);
 
   const filter = (e) => {
     const keyword = e.target.value;
 
     if (keyword !== '') {
-      const results = USERS.filter((user) => {
-        return user.name.toLowerCase().startsWith(keyword.toLowerCase());
+      const results = allCountries.filter((user) => {
+        return user.toLowerCase().startsWith(keyword.toLowerCase());
         // Use the toLowerCase() method to make it case-insensitive
       });
       setFoundUsers(results);
     } else {
-      setFoundUsers(USERS);
+      setFoundUsers(allCountries);
       // If the text field is empty, show all users
     }
 
@@ -40,7 +60,7 @@ function Question3() {
   };
 
   return (
-    <div className="container">
+    <div className="question">
       <input
         type="search"
         value={name}
@@ -52,10 +72,10 @@ function Question3() {
       <div className="user-list">
         {foundUsers && foundUsers.length > 0 ? (
           foundUsers.map((user) => (
-            <li key={user.id} className="user">
-              <span className="user-id">{user.id}</span>
-              <span className="user-name">{user.name}</span>
-              <span className="user-age">{user.age} year old</span>
+            <li key={user} className="user">
+              
+              <span className="user-name">{user}</span>
+             
             </li>
           ))
         ) : (
