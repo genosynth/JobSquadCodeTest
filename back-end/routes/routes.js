@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
-const { Router } = require('express')
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs");
+const userRegistration = require("../models/userRegistration")
 
 
   
@@ -23,8 +25,7 @@ router.post('/getCountry', async (req,res)=>{
 
     else return alert("Not Found!")
     
-    */
-   
+    */   
 })
 
 router.post('/getAll', async (req,res)=>{
@@ -58,5 +59,28 @@ router.get('/filterAll', async (req,res)=>{
     
     return res.send(namesOnly)
 } )
+
+router.post('/signup', async(request, response) => {
+    //response.send('send')
+    let hashedPassword = await bcrypt.hash(request.body.password, 8);
+    const signedUpUser = new userRegistration({
+        name: request.body.name,        
+        email: request.body.email,
+        password: hashedPassword,
+       
+
+    })
+
+    signedUpUser.save()
+    .then (data => {
+        console.log(data)
+        response.json(data)
+        //console.log(data)
+    })
+    .catch (error => {
+        response.json(error)
+        //console.log(error)
+    })
+})
 
 module.exports = router
