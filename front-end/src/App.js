@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import './App.css';
-import axios from "axios"
-import Question2 from "./components/Question2"
+import axios from "axios";
+import Question1 from './components/Question1';
+import Question2 from "./components/Question2";
+import Question3 from './components/Question3';
 
 function App() {
 
@@ -47,7 +49,7 @@ function App() {
   const getArray = async(event)=>{
     event.preventDefault()
 
-    await axios.post('http://192.168.0.145:5000/app/getAll', {searchArray})
+    await axios.post('http://192.168.0.145:5000/app/getAll', {array})
     .then((response) => {
       console.log(response.data)
       updateResponseArray(response.data)
@@ -58,19 +60,10 @@ function App() {
 
   return (
     <div className="App">
-
-     <input onChange={loadCountryName} placeholder="Exact Search"></input>
-     <button onClick={getCountry}>Click</button>
-     <div>{responseCountry}</div>
-
-     <input onChange={loadSearch} placeholder="Add to array" ></input>
-     <button onClick={addToArray}>Add</button>
-
-     <button onClick={getArray}>Search</button>
-     <div>Array - {array.map(string=><p key={string}>{string}</p>)}</div>
-     <Question2 responseArray={responseArray}></Question2>     
-
      
+    <Question1 loadCountryName={loadCountryName} getCountry={getCountry} responseCountry={responseCountry}></Question1>
+    <Question2 loadSearch={loadSearch} addToArray={addToArray} getArray={getArray} responseArray={responseArray} array={array}></Question2>         
+    <Question3></Question3>
 
     </div>
   );

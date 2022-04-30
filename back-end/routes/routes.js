@@ -16,8 +16,6 @@ router.post('/getCountry', async (req,res)=>{
         let message = "Not Found"
         return res.send(message)
     }
-
-
     
    /* if (matchedCountry.data){
      return res.send(matchedCountry.data)
@@ -31,13 +29,20 @@ router.post('/getCountry', async (req,res)=>{
 
 router.post('/getAll', async (req,res)=>{
 
-    const userSearched = req.body.searchArray
+    const userSearched = req.body.array //hanwhekk bello, tajjeb
+    console.log(req.body.array)
     const allCountries = await axios.get(`https://restcountries.com/v3.1/all`)
 
     if (allCountries.data){
 
-        const result = allCountries.data.filter(country => country.name.common.toLowerCase().includes(userSearched.toLowerCase()));
-
+        const result = allCountries.data.filter((country) => {
+            
+        for (let i=0; i<userSearched.length; i++){
+           if( country.name.common.toLowerCase().includes(userSearched[i].toLowerCase())){
+               return country
+           };
+        }
+        })
         const namesOnly = result.map(country => country.name.common);
 
         console.log(namesOnly)
