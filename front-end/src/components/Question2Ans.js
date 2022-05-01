@@ -4,7 +4,7 @@ function Question2Ans({responseArray}) {
   return (
     responseArray.map(country => {
 
-        return <p key={country}>{country}</p>                    
+        return <h2 key={country}>{country}</h2>                    
 
     })   
   )

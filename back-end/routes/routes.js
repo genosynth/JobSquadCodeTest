@@ -97,6 +97,7 @@ router.post('/login', async(request, response) => {
             name:user.name,
             email:user.email
         }, process.env.TOKEN_KEY)
+        
         console.log(user)
         return response.json({status: 'ok', user:token})
     } else {return response.json({status:"error", user:false})}

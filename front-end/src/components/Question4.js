@@ -86,11 +86,11 @@ const [message, updateMessage] = useState("")
   }, [reel1Result,reel2Result,reel3Result])
   return (
     <div className='question'>
-        <h1><img src={coinsImage} style={{width:"50px"}}></img>{coins}</h1>
+        <h1><img src={coinsImage} style={{width:"50px"}}></img>{coins} <button onClick={spin}>Spin</button></h1>
         <img style={style} alt="reel1" src={reel1Result}></img>
         <img style={style} alt="reel2" src={reel2Result}></img>
         <img style={style} alt="reel3" src={reel3Result}></img>
-        <button onClick={spin}>Spin</button>
+        
         <h1>{message}</h1>
     </div>
 

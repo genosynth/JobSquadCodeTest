@@ -8,7 +8,7 @@ function Question2({loadSearch, addToArray,responseArray,array,getArray}) {
      <button onClick={addToArray}>Add</button>
 
      <button onClick={getArray}>Search</button>
-     <div>Your Array Search Input - {array.map(string=><p key={string}>{string}</p>)}</div>
+     <div>{array.map(string=><p key={string}>{string}</p>)}</div>
      <Question2Ans responseArray={responseArray}></Question2Ans>     
     </div>
   )

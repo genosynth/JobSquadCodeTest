@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 
 function Login() {
 
     const [logIn, updateLogin] = useState({email:"", password:""})
+    const [status, updateStatus] = useState(localStorage.getItem("token"))
 
     const setEmail = (e) =>{
         updateLogin({
@@ -32,6 +33,7 @@ function Login() {
             localStorage.setItem('token', response.data.user)
             updateLogin({email:"", password:""})
             alert("Logged in succesfully!")
+            window.location.reload();
             
           } else {
             alert("Email and/or Password incorrect!")
@@ -41,14 +43,37 @@ function Login() {
       
       }
 
+    
+    let logOut = () =>{
+      localStorage.removeItem("token")
+      alert("You have logged out successfully!")
+    }
 
-  return (
-    <div className='question'>
-        <input type="email" placeholder="email" required onChange={setEmail} value={logIn.email}></input>
-        <input type="password" placeholder="password" required onChange={setPassword} value={logIn.password}></input>
-        <button onClick={postLogin}>Log In</button>
-    </div>
-  )
+      
+
+      try {
+       const decode= jwt_decode(status);
+       return (
+       <form onSubmit={logOut}>
+       <div>Logged in as <b>{decode.name}</b> 
+       <button type="submit"> Log Out</button>
+       </div>
+       </form>
+       )
+
+      } catch (error) {
+        return (
+          <div className='question'>
+              <input type="email" placeholder="email" required onChange={setEmail} value={logIn.email}></input>
+              <input type="password" placeholder="password" required onChange={setPassword} value={logIn.password}></input>
+              <button onClick={postLogin}>Log In</button>
+          </div>
+        )
+       
+      }
+      
+
+
 }
 
 export default Login

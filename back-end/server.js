@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 const cors = require('cors')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const routesUrls = require('./routes/routes')
+const path = require("path")
 
 dotenv.config()
 
@@ -14,10 +15,9 @@ mongoose.connect(process.env.DATABASE_ACCESS, (error, result) =>{
 })
 
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
+
+app.use(express.static(path.join(__dirname + "/public")))
 
 app.use(express.json())
 app.use(cors())
