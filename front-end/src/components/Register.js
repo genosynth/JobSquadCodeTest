@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 
-function Questions5and6() {
+function Register() {
 
     const [registrationDetails, updateRegistrationDetails] = useState({
         name:"",
@@ -51,13 +51,15 @@ function Questions5and6() {
   return (
 
    
-    <div>
+    <div className='question'>
         <input type="text" placeholder='Name' required onChange={setRegistrationName}></input>
         <input type="email" placeholder='Email' required  onChange={setRegistrationEmail}></input>
         <input type="password" placeholder='Password' required  onChange={setRegistrationPassword}></input>
         <button onClick={signUp} >Register</button>
+
+        
     </div>
   )
 }
 
-export default Questions5and6
+export default Register

@@ -4,6 +4,9 @@ const axios = require('axios')
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs");
 const userRegistration = require("../models/userRegistration")
+const dotenv = require("dotenv")
+
+dotenv.config()
 
 
   
@@ -60,8 +63,8 @@ router.get('/filterAll', async (req,res)=>{
     return res.send(namesOnly)
 } )
 
-router.post('/signup', async(request, response) => {
-    //response.send('send')
+router.post('/signup', async (request, response) => {
+    
     let hashedPassword = await bcrypt.hash(request.body.password, 8);
     const signedUpUser = new userRegistration({
         name: request.body.name,        
@@ -74,13 +77,30 @@ router.post('/signup', async(request, response) => {
     signedUpUser.save()
     .then (data => {
         console.log(data)
-        response.json(data)
-        //console.log(data)
+        response.json(data)        
     })
     .catch (error => {
-        response.json(error)
-        //console.log(error)
+        response.json(error)        
     })
+})
+
+router.post('/login', async(request, response) => {
+    //response.send('send')
+   const user = await userRegistration.findOne({
+       email: request.body.email, 
+       //password: request.body.password {THIS IS COMMENTED AS PASSWORD IS BEING CHECKED BY HASHING AFTER THIS LINE}
+    })
+
+    if(user && await bcrypt.compare(request.body.password, user.password)){
+
+        const token = jwt.sign({
+            name:user.name,
+            email:user.email
+        }, process.env.TOKEN_KEY)
+        console.log(user)
+        return response.json({status: 'ok', user:token})
+    } else {return response.json({status:"error", user:false})}
+
 })
 
 module.exports = router

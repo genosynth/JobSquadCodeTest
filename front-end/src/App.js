@@ -5,7 +5,8 @@ import Question1 from './components/Question1';
 import Question2 from "./components/Question2";
 import Question3 from './components/Question3';
 import Question4 from './components/Question4';
-import Question5and6 from './components/Questions5and6';
+import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
 
@@ -65,7 +66,8 @@ function App() {
     <Question2 loadSearch={loadSearch} addToArray={addToArray} getArray={getArray} responseArray={responseArray} array={array}></Question2>         
     <Question3></Question3>
     <Question4></Question4>
-    <Question5and6></Question5and6>
+    <Register></Register>
+    <Login></Login>
 
     </div>
   );
