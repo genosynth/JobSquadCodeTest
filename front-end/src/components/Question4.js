@@ -5,6 +5,7 @@ import apple from "../images/apple.png"
 import banana from "../images/banana.png"
 import fruitspin from "../images/fruitspin.png"
 import coinsImage from "../images/coins.png"
+import Button from 'react-bootstrap/Button';
 
 function Question4() {
 
@@ -86,12 +87,17 @@ const [message, updateMessage] = useState("")
   }, [reel1Result,reel2Result,reel3Result])
   return (
     <div className='question'>
-        <h1><img src={coinsImage} style={{width:"50px"}}></img>{coins} <button onClick={spin}>Spin</button></h1>
+      <p>A slot machine with the reels and rules satisfying the requirements of the question given in the test.</p>
+        <h1><img src={coinsImage} style={{width:"50px"}}></img>{coins}</h1>
         <img style={style} alt="reel1" src={reel1Result}></img>
         <img style={style} alt="reel2" src={reel2Result}></img>
         <img style={style} alt="reel3" src={reel3Result}></img>
         
-        <h1>{message}</h1>
+        <div style={{padding:"2%"}}>
+         <button className='btn btn-light' onClick={spin}>Spin</button>
+          <h1>{message}</h1>
+        </div>
+        
     </div>
 
   )

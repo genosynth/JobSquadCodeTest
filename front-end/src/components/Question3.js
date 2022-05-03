@@ -47,6 +47,7 @@ function Question3() {
 
   return (
     <div className="question">
+      <p>Filter all countries by name.</p>
       <input
         type="search"
         value={name}
@@ -68,6 +69,8 @@ function Question3() {
           <h1>No results found!</h1>
         )}
       </div>
+
+      
     </div>
   );
 }

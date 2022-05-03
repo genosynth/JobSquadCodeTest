@@ -54,8 +54,9 @@ function Login() {
       try {
        const decode= jwt_decode(status);
        return (
-       <form onSubmit={logOut}>
-       <div>Logged in as <b>{decode.name}</b> 
+       <form className="question" onSubmit={logOut}>
+        
+       <div>Logged in as <b>{decode.name} - </b> 
        <button type="submit"> Log Out</button>
        </div>
        </form>
@@ -64,6 +65,7 @@ function Login() {
       } catch (error) {
         return (
           <div className='question'>
+             <p>Enter email address and password to log in.</p>
               <input type="email" placeholder="email" required onChange={setEmail} value={logIn.email}></input>
               <input type="password" placeholder="password" required onChange={setPassword} value={logIn.password}></input>
               <button onClick={postLogin}>Log In</button>

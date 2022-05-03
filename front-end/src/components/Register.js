@@ -39,11 +39,11 @@ function Register() {
       
         axios.post('http://localhost:5000/app/signup', registered)
         .then((response) => {
-          if(response.data){
+          if(response.data.name){
           alert("Registered succesfully!")
-           return window.location.href="/"
+           return window.location.href="/q6"
           //console.log(response)
-          } else{ alert("Username and/or Email already in use! Please use another username and/or email.")}
+          } else{ alert("Email already in use! Please use another email.")}
         })
         
       }
@@ -52,11 +52,14 @@ function Register() {
 
    
     <div className='question'>
+        
+        <p>Enter name, email address and password to register.</p>
+        <form className="register-form" onSubmit={signUp}>
         <input type="text" placeholder='Name' required onChange={setRegistrationName}></input>
         <input type="email" placeholder='Email' required  onChange={setRegistrationEmail}></input>
         <input type="password" placeholder='Password' required  onChange={setRegistrationPassword}></input>
-        <button onClick={signUp} >Register</button>
-
+        <button type='submit' >Register</button>
+        </form>
         
     </div>
   )

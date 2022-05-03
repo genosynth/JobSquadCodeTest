@@ -35,11 +35,14 @@ function Question1() {
 
   return (
     <div className='question'>
+      <p>Search a contry by name and get an exact match.</p>
     <input onChange={loadCountryName} placeholder="Exact Search"></input>
      <button onClick={getCountry}>Click</button>
      <h1>{responseCountry}</h1>
      <p>{responseAltSpellings}</p>
      <img src={responseCountryFlag}></img>
+
+     
     </div>
   )
 }

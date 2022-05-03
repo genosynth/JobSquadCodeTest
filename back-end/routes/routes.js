@@ -74,6 +74,14 @@ router.post('/signup', async (request, response) => {
 
     })
 
+    const user = await userRegistration.findOne({
+        email: request.body.email, 
+        //password: request.body.password {THIS IS COMMENTED AS PASSWORD IS BEING CHECKED BY HASHING AFTER THIS LINE}
+     })
+
+     console.log(user)
+     if (user) return response.json("error")
+
     signedUpUser.save()
     .then (data => {
         console.log(data)
